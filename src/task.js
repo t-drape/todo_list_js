@@ -8,11 +8,6 @@ const newTask = (title, date, description, priority) => {
     priority,
   }
 
-  const Priority = (state) => ({
-    getPriorityLevel: () => state.priority,
-    changePriorityLevel: (newPriorityLevel) => state.priority = newPriorityLevel,
-  });
-
   return Object.assign(
     {},
     Title(state),

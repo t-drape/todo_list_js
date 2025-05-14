@@ -1,15 +1,17 @@
-import { Title, DueDate } from "./comp.js";
+import { Title, DueDate, Description, Priority } from "./comp.js";
 
-
-const newFolder = (title, date) => {
+const newFolder = (title, date, description) => {
   let state = {
     title,
-    date
+    date,
+    description,
   }
+
   return Object.assign(
-    state,
+    {},
     Title(state),
     DueDate(state),
+    Description(state)
   )
 };
 
