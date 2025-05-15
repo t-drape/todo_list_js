@@ -16,6 +16,6 @@ const Description = (state) => ({
 const Priority = (state) => ({
   getPriorityLevel: () => state.priority,
   changePriorityLevel: (newPriorityLevel) => state.priority = newPriorityLevel,
-})
+});
 
 export { Title, DueDate, Description, Priority };
