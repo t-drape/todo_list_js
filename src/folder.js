@@ -19,7 +19,7 @@ const newFolder = (title, date, description) => {
     Title(state),
     DueDate(state),
     Description(state),
-    Tasks(state)
+    Tasks(state),
   )
 };
 
