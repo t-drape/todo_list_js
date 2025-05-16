@@ -18,8 +18,8 @@ folder.classList.add("folder");
 
 // Change to current folder
 const totalDelete = (target) => {
-  const taskID = target.parentElement.dataset.id;
-  const folder = findFolder(target.parentElement.parentElement.dataset.folderId);
+  const taskID = target.parentElement.parentElement.dataset.id;
+  const folder = findFolder(target.parentElement.parentElement.parentElement.dataset.folderId);
   folder.deleteTask(taskID);
   // displayTasks();
 }
@@ -52,15 +52,40 @@ const displayTasks = () => {
     const taskElement = document.createElement("div");
     taskElement.dataset.id = task.getID();
 
+    const sepElement = document.createElement("div");
+    const secSepElement = document.createElement("div");
+
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
     deleteButton.addEventListener("click", performDelete);
 
-    taskElement.appendChild(deleteButton);
+    sepElement.appendChild(deleteButton);
 
     const title = document.createElement("h1");
     title.textContent = task.getTitle();
-    taskElement.appendChild(title);
+    sepElement.appendChild(title);
+
+    const description = document.createElement("p");
+    description.textContent = task.getDescription();
+    sepElement.appendChild(description);
+
+
+    sepElement.classList.add("sep-one");
+
+
+    const priorityLevel = document.createElement("h3");
+    priorityLevel.textContent = "Priority Level: " + task.getPriorityLevel();
+    secSepElement.appendChild(priorityLevel);
+
+    const dueDate = document.createElement("h3");
+    dueDate.textContent = "Due Date: " + task.getDate();
+    secSepElement.appendChild(dueDate);
+
+    secSepElement.classList.add("sep-two");
+
+
+    taskElement.appendChild(sepElement);
+    taskElement.appendChild(secSepElement);
 
     taskElement.classList.add("task");
 
@@ -91,7 +116,7 @@ const form = document.querySelector("form");
 
 form.addEventListener("submit", getFormData);
 
-const t = newTask("Test", 2, "First One!", 10);
+const t = newTask("Test", "04-03-2025", "This is a test of the american broadcasting station", 10);
 newDay.addNewTask(t);
 myDay.addNewTask(t);
 displayTasks();

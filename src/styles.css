@@ -57,33 +57,68 @@ h1, h2, h3, h4, h5, h6 {
 url: https://www.joshwcomeau.com/css/custom-css-reset/
 */
 
+body {
+}
+
+header {
+  padding: 25px;
+  border-bottom: 5px solid black;
+
+}
 
 nav {
   width: 100%; 
   display: flex;
   justify-content: space-evenly;
-  
-  }
+}
 
+nav > button {
+  font-size: 24px;
+}
 
+.sep-one {
+  width: 65%;
+  display: flex;
+  align-items: center;
+}
 
+.sep-two {
+  width: 35%;
+  display: flex;
+  align-items: center;
+}
 
-/* .folder {
-  display: grid;
-  grid-template-columns: 1fr;
+.sep-one > *, .sep-two > * {
+  margin-left: 25px;
 }
 
 .task {
   display: flex;
-  justify-content: start;
-  background-color: lavender;
+  align-items: center;
+  border-bottom: 5px solid black;
 }
 
 .task > button {
-  height: 25px;
-  margin-right: 15px;
-} */
-
-form, footer, .folder {
-  display: none;
+  height: 30px;
+  margin-left: 10px;
+  margin-right: 25px;
 }
+
+.task > p {
+  margin-left: 25px;
+  max-width: 65ch;
+}
+
+footer {
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  border-top: 5px solid black;
+}
+
+
+/* form {
+  display: none;
+} */
