@@ -28,10 +28,15 @@ const findFolder = (folderID) => {
     }
   }
 }
+
+const setFolderID = (folderID) => {
+  folder.dataset.folderId = folderID;
+}
 // const folder = content.childNodes;
 // console.log(folder);
 const displayTasks = () => {
   const project = findFolder(folder.dataset.folderId);
+  // folder.dataset.folderId = project.getID();
   folder.innerHTML = "";
   for (let task of project.getTasks()) {
     const taskElement = document.createElement("div");
@@ -75,6 +80,15 @@ form.addEventListener("submit", getFormData);
 const t = newTask("Test", 2, "First One!", 10);
 myDay.addNewTask(t);
 displayTasks();
+
+
+const myDayWindow = () => {
+  setFolderID(myDay.getID());
+  displayTasks();
+}
+
+const homeButton = document.getElementById("home");
+homeButton.addEventListener("click", myDayWindow);
 
 // myDay.addNewTask(t);
 
