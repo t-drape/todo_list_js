@@ -1,7 +1,9 @@
-import { Title, Description } from "./comp.js";
+import { unique } from "webpack-merge";
+import { uniqueID, Title, Description } from "./comp.js";
 
 const newFolder = (title, date, description) => {
   let state = {
+    id: crypto.randomUUID(),
     tasks: [],
     title,
     date,
@@ -25,6 +27,7 @@ const newFolder = (title, date, description) => {
 
   return Object.assign(
     {},
+    uniqueID(state),
     Title(state),
     Description(state),
     Tasks(state),
