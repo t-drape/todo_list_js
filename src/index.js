@@ -17,12 +17,12 @@ const folder = document.createElement("div");
 const totalDelete = (event) => {
   const taskID = event.target.parentElement.dataset.id;
   const folder = findFolder(event.target.parentElement.parentElement.dataset.folderId);
-  console.log(folder.getTitle())
   folder.deleteTask(taskID);
+  myDay.deleteTask(taskID);
   displayTasks();
 }
 
-folder.dataset.folderId = myDay.getID();
+folder.dataset.folderId = newDay.getID();
 content.appendChild(folder);
 
 const findFolder = (folderID) => {
