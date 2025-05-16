@@ -1,5 +1,6 @@
 import { newTask } from "./task.js";
 import { newFolder } from "./folder.js";
+import { displayWindow } from "./display.js";
 
 const AllFolders = [];
 
@@ -7,13 +8,31 @@ let curFolder;
 // Default folder for all tasks
 const myDay = newFolder("My Day", "All your Tasks");
 
+const totalDelete = (event) => {
+  const taskID = event.target.parentElement.dataset.id;
+  myDay.deleteTask(taskID);
+  displayTasks();
+}
+
 const content = document.getElementById("content");
 const displayTasks = () => {
+  content.innerHTML = "";
   for (let task of myDay.getTasks()) {
-    console.log(task.getTitle());
-    const t = document.createElement("h1");
-    t.textContent = task.getTitle();
-    content.appendChild(t);
+    console.log(task.getID());
+    const taskElement = document.createElement("div");
+    taskElement.dataset.id = task.getID();
+
+    const title = document.createElement("h1");
+    title.textContent = task.getTitle();
+    taskElement.appendChild(title);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "X";
+    deleteButton.addEventListener("click", totalDelete);
+    taskElement.appendChild(deleteButton);
+
+
+    content.appendChild(taskElement);
   }
 }
 

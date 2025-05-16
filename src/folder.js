@@ -11,8 +11,17 @@ const newFolder = (title, date, description) => {
   const Tasks = (state) => ({
     getTasks: () => state.tasks,
     addNewTask: (newTask) => state.tasks.push(newTask),
-    deleteTask: (task) => state.tasks.splice(state.tasks.indexOf(task), 1),
-  })
+    // deleteTask: (taskID) => state.tasks.splice(state.tasks.indexOf(taskID), 1),
+    deleteTask: (taskID) => {
+      let index = 0;
+      for (let task of state.tasks) {
+        if (task.getID() == taskID) {
+          state.tasks.splice(index, 1);
+        }
+        index++;
+      }
+    },
+  });
 
   return Object.assign(
     {},

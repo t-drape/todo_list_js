@@ -1,3 +1,7 @@
+const uniqueID = (state) => ({
+  getID: () => state.id,
+});
+
 const Title = (state) => ({
   getTitle: () => state.title,
   changeTitle: (newTitle) => state.title = newTitle,
@@ -18,4 +22,4 @@ const Priority = (state) => ({
   changePriorityLevel: (newPriorityLevel) => state.priority = newPriorityLevel,
 });
 
-export { Title, DueDate, Description, Priority };
+export { uniqueID, Title, DueDate, Description, Priority };
