@@ -2,6 +2,8 @@ import { newTask } from "./task.js";
 import { newFolder } from "./folder.js";
 import { displayWindow } from "./display.js";
 
+import "./styles.css";
+
 const AllFolders = [];
 
 // let curFolder;
@@ -12,15 +14,18 @@ AllFolders.push(myDay);
 AllFolders.push(newDay);
 const content = document.getElementById("content");
 const folder = document.createElement("div");
+folder.classList.add("folder");
 
 // Change to current folder
-const totalDelete = (event) => {
-  const taskID = event.target.parentElement.dataset.id;
-  const folder = findFolder(event.target.parentElement.parentElement.dataset.folderId);
+const totalDelete = (target) => {
+  const taskID = target.parentElement.dataset.id;
+  const folder = findFolder(target.parentElement.parentElement.dataset.folderId);
   folder.deleteTask(taskID);
-  if (folder !== myDay) {
-    myDay.deleteTask(taskID);
-  }
+  // displayTasks();
+}
+
+const performDelete = (event) => {
+  totalDelete(event.target);
   displayTasks();
 }
 
@@ -42,20 +47,22 @@ const setFolderID = (folderID) => {
 // console.log(folder);
 const displayTasks = () => {
   const project = findFolder(folder.dataset.folderId);
-  // folder.dataset.folderId = project.getID();
   folder.innerHTML = "";
   for (let task of project.getTasks()) {
     const taskElement = document.createElement("div");
     taskElement.dataset.id = task.getID();
 
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "X";
+    deleteButton.addEventListener("click", performDelete);
+
+    taskElement.appendChild(deleteButton);
+
     const title = document.createElement("h1");
     title.textContent = task.getTitle();
     taskElement.appendChild(title);
 
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "X";
-    deleteButton.addEventListener("click", totalDelete);
-    taskElement.appendChild(deleteButton);
+    taskElement.classList.add("task");
 
     folder.appendChild(taskElement);
   }
@@ -68,7 +75,8 @@ const createTask = (data) => {
   const description = data.get("description");
   // When a new task is created, add it automatically to myDay
   const task = newTask(title, dueDate, description, priority);
-  myDay.addNewTask(task);
+  const project = findFolder(folder.dataset.folderId);
+  project.addNewTask(task);
   displayTasks();
 }
 
