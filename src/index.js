@@ -18,7 +18,9 @@ const totalDelete = (event) => {
   const taskID = event.target.parentElement.dataset.id;
   const folder = findFolder(event.target.parentElement.parentElement.dataset.folderId);
   folder.deleteTask(taskID);
-  myDay.deleteTask(taskID);
+  if (folder !== myDay) {
+    myDay.deleteTask(taskID);
+  }
   displayTasks();
 }
 
