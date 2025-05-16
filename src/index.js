@@ -4,17 +4,21 @@ import { displayWindow } from "./display.js";
 
 const AllFolders = [];
 
-let curFolder;
+// let curFolder;
 // Default folder for all tasks
 const myDay = newFolder("My Day", "All your Tasks");
+const newDay = newFolder("NEW Day", "All your Tasks");
 AllFolders.push(myDay);
+AllFolders.push(newDay);
 const content = document.getElementById("content");
 const folder = document.createElement("div");
 
 // Change to current folder
 const totalDelete = (event) => {
   const taskID = event.target.parentElement.dataset.id;
-  myDay.deleteTask(taskID);
+  const folder = findFolder(event.target.parentElement.parentElement.dataset.folderId);
+  console.log(folder.getTitle())
+  folder.deleteTask(taskID);
   displayTasks();
 }
 
@@ -78,6 +82,7 @@ const form = document.querySelector("form");
 form.addEventListener("submit", getFormData);
 
 const t = newTask("Test", 2, "First One!", 10);
+newDay.addNewTask(t);
 myDay.addNewTask(t);
 displayTasks();
 
