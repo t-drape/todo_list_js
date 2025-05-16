@@ -7,9 +7,32 @@ let curFolder;
 // Default folder for all tasks
 const myDay = newFolder("My Day", "All your Tasks");
 
-// When a new task is created, add it automatically to myDay
-const t = newTask("Test", 2, "First One!", 10);
-myDay.addNewTask(t);
+const createTask = (data) => {
+  const title = data.get("title");
+  const dueDate = data.get("dueDate");
+  const priority = data.get("priority");
+  const description = data.get("description");
+  // When a new task is created, add it automatically to myDay
+  myDay.addNewTask(newTask(title, dueDate, description, priority));
+  console.log(myDay.getTasks())
+}
+
+const getFormData = (event) => {
+  event.preventDefault();
+  const data = new FormData(form);
+  console.log(data.get("title"));
+  console.log(data.get("dueDate"));
+  console.log(data.get("priority"));
+  console.log(data.get("description"));
+  createTask(data);
+  form.reset();
+}
+
+const form = document.querySelector("form");
+form.addEventListener("submit", getFormData);
+
+// const t = newTask("Test", 2, "First One!", 10);
+// myDay.addNewTask(t);
 
 
 
