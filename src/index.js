@@ -26,7 +26,7 @@ const totalDelete = (target) => {
 
 const performDelete = (event) => {
   totalDelete(event.target);
-  displayTasks();
+  displayTasks(event.target.parentElement.parentElement.parentElement.dataset.folderId);
 }
 
 folder.dataset.folderId = newDay.getID();
@@ -47,7 +47,7 @@ const setFolderID = (folderID) => {
 // console.log(folder);
 const displayTasks = (folderID) => {
   const project = findFolder(folderID);
-  // console.log(project.getTitle());
+
   folder.innerHTML = "";
   for (let task of project.getTasks()) {
     const taskElement = document.createElement("div");
@@ -102,19 +102,36 @@ const createTask = (data) => {
   const task = newTask(title, dueDate, description, priority);
   const project = findFolder(folder.dataset.folderId);
   project.addNewTask(task);
-  displayTasks();
+  displayTasks(project.getID());
 }
 
-const getFormData = (event) => {
+const createFolder = (data) => {
+  const title = data.get("title");
+  const description = data.get("description");
+  const folder = newFolder(title, description);
+  AllFolders.push(folder);
+  displayFolders(AllFolders);
+}
+
+const getTaskFormData = (event) => {
   event.preventDefault();
-  const data = new FormData(form);
+  const data = new FormData(taskForm);
   createTask(data);
-  form.reset();
+  taskForm.reset();
 }
 
-const form = document.querySelector("form");
+const getFolderFormData = (event) => {
+  event.preventDefault();
+  const data = new FormData(folderForm);
+  createFolder(data);
+  folderForm.reset();
+}
 
-form.addEventListener("submit", getFormData);
+const taskForm = document.querySelector(".task-form");
+const folderForm = document.querySelector(".folder-form");
+
+taskForm.addEventListener("submit", getTaskFormData);
+folderForm.addEventListener("submit", getFolderFormData);
 
 const t = newTask("Test", "04-03-2025", "This is a test of the american broadcasting station", 10);
 newDay.addNewTask(t);
@@ -122,19 +139,19 @@ myDay.addNewTask(t);
 displayTasks(folder.dataset.folderId);
 
 const displayFolders = (allFolders) => {
-  // folder.innerHTML = "";
+  folder.innerHTML = "";
   // folder.dataset.id = "";
   for (let f of allFolders) {
     const newFolder = document.createElement("div");
-    newFolder.dataset.folderId = f.id;
+    newFolder.dataset.folderId = f.getID();
 
     const title = document.createElement("h1");
     title.textContent = f.getTitle();
 
     newFolder.appendChild(title);
-    console.log(newFolder.dataset.folderId)
     newFolder.addEventListener("click", function(event) {
-      displayTasks(newFolder.dataset.folderId)
+      setFolderID(newFolder.dataset.folderId);
+      displayTasks(newFolder.dataset.folderId);
     });
 
     folder.appendChild(newFolder);
@@ -143,7 +160,6 @@ const displayFolders = (allFolders) => {
 
 
 const myDayWindow = () => {
-  console.log("H")
   setFolderID(myDay.getID());
   displayTasks(myDay.getID());
 }

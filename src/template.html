@@ -14,7 +14,7 @@
   </header>
   <div id="content" class="content">
   </div>
-  <form>
+  <form class="task-form">
     <label for="title">Title</label>
     <input id="title" name="title" type="text">
     <label for="description">Description</label>
@@ -23,6 +23,13 @@
     <input id="dueDate" name="dueDate" type="date">
     <label for="priority">Priority</label>
     <input id="priority" name="priority" type="number" min="1" max="10">
+    <input type="submit">
+  </form>
+  <form class="folder-form">
+    <label for="title">Title</label>
+    <input id="title" name="title" type="text">
+    <label for="description">Description</label>
+    <input id="description" name="description" maxLength="65" type="text">
     <input type="submit">
   </form>
   <footer>
