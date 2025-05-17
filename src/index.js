@@ -1,31 +1,21 @@
 import { newTask } from "./task.js";
 import { newFolder } from "./folder.js";
-import { displayWindow } from "./display.js";
+import * as display from "./display.js";
+import * as create from "./create.js";
 
 import "./styles.css";
 
 const AllFolders = [];
 
-// let curFolder;
 // Default folder for all tasks
 const myDay = newFolder("My Day", "All your Tasks");
 const newDay = newFolder("NEW Day", "All your Tasks");
 AllFolders.push(myDay);
 AllFolders.push(newDay);
 const content = document.getElementById("content");
-const folder = document.createElement("div");
-folder.classList.add("folder");
-
 content.dataset.folderId = myDay.getID();
-// content.appendChild(folder);
 
-// Change to current folder
-
-// const performDelete = (event) => {
-//   // totalDelete(event.target);
-//   // displayTasks(event.target.parentElement.parentElement.parentElement.dataset.folderId);
-// }
-
+// Move to search module
 const findFolder = (folderID) => {
   for (let folder of AllFolders) {
     if (folder.getID() == folderID) {
@@ -34,15 +24,17 @@ const findFolder = (folderID) => {
   }
 }
 
+// Move to search module
 const setID = (container, folderID) => {
   container.dataset.folderId = folderID;
 }
 
+// Move to display module
 const resetDisplay = (div)  => {
   div.innerHTML = "";
 }
-// const folder = content.childNodes;
-// console.log(folder);
+
+// Move to display module
 const displayTasks = (container) => {
   const project = findFolder(container.dataset.folderId);
   resetDisplay(container);
@@ -93,6 +85,7 @@ const displayTasks = (container) => {
   }
 }
 
+// Move to create module
 const createTask = (data) => {
   const title = data.get("title");
   const dueDate = data.get("dueDate");
@@ -102,6 +95,7 @@ const createTask = (data) => {
   return newTask(title, dueDate, description, priority);
 }
 
+// Move to create module
 const createFolder = (data) => {
   const title = data.get("title");
   const description = data.get("description");
@@ -109,6 +103,7 @@ const createFolder = (data) => {
   return folder;
 }
 
+// Move to display module
 const displayFolders = (container, folders) => {
   for (let f of folders) {
     const newFolder = document.createElement("div");
@@ -127,14 +122,17 @@ const displayFolders = (container, folders) => {
   }
 }
 
+// Move to create module
 const taskForm = document.querySelector(".task-form");
 const folderForm = document.querySelector(".folder-form");
 
-const addTaskToFolder = (task, folder) => {
-  const project = findFolder(folder.dataset.folderId);
+// Move to create module
+const addTaskToFolder = (task, container, folders) => {
+  const project = findFolder(container.dataset.folderId, folders);
   project.addNewTask(task);
 }
 
+// Move to create module
 const getTaskFormData = (event) => {
   event.preventDefault();
   const data = new FormData(taskForm);
@@ -143,6 +141,7 @@ const getTaskFormData = (event) => {
   return task;
 }
 
+// Move to create module
 const getFolderFormData = (event) => {
   event.preventDefault();
   const data = new FormData(folderForm);
@@ -152,10 +151,11 @@ const getFolderFormData = (event) => {
 
 taskForm.addEventListener("submit", (event) => {
   const task = getTaskFormData(event);
-  addTaskToFolder(task, folder);
-  displayTasks(content, folder);
+  addTaskToFolder(task, content, AllFolders);
+  displayTasks(content);
 });
 
+// Move to display module
 const readyWindowFolders = (container) => {
   resetDisplay(container);
   setID(container, "");
@@ -169,20 +169,19 @@ folderForm.addEventListener("submit", (event) => {
 
 
 const t = newTask("Test", "04-03-2025", "This is a test of the american broadcasting station", 10);
-newDay.addNewTask(t);
 myDay.addNewTask(t);
-displayTasks(content, folder.dataset.folderId);
+newDay.addNewTask(newTask("NTest", "04-03-2025", "This is a test of the american broadcasting station", 10))
+display.displayTasks(content, AllFolders);
 
 const homeButton = document.getElementById("home");
-
 homeButton.addEventListener("click", () => {
   setID(content, myDay.getID());
-  displayTasks(content)
+  display.displayTasks(content, AllFolders);
 });
 
 const projectButton = document.getElementById("projects");
 projectButton.addEventListener("click", function(event) {
-  readyWindowFolders(content);
+  display.readyWindowFolders(content, AllFolders);
 });
 
 // myDay.addNewTask(t);
