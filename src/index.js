@@ -2,6 +2,7 @@ import { newTask } from "./task.js";
 import { newFolder } from "./folder.js";
 import * as display from "./display.js";
 import * as create from "./create.js";
+import * as search from "./search.js";
 
 import "./styles.css";
 
@@ -14,20 +15,6 @@ AllFolders.push(myDay);
 AllFolders.push(newDay);
 const content = document.getElementById("content");
 content.dataset.folderId = myDay.getID();
-
-// Move to search module
-const findFolder = (folderID) => {
-  for (let folder of AllFolders) {
-    if (folder.getID() == folderID) {
-      return folder;
-    }
-  }
-}
-
-// Move to search module
-const setID = (container, folderID) => {
-  container.dataset.folderId = folderID;
-}
 
 // Move to create module
 const createTask = (data) => {
@@ -54,7 +41,7 @@ const folderForm = document.querySelector(".folder-form");
 
 // Move to create module
 const addTaskToFolder = (task, container, folders) => {
-  const project = findFolder(container.dataset.folderId, folders);
+  const project = search.findFolder(container.dataset.folderId, folders);
   project.addNewTask(task);
 }
 
@@ -95,7 +82,7 @@ display.displayTasks(content, AllFolders);
 
 const homeButton = document.getElementById("home");
 homeButton.addEventListener("click", () => {
-  setID(content, myDay.getID());
+  search.setID(content, myDay.getID());
   display.displayTasks(content, AllFolders);
 });
 
