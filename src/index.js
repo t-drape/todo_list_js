@@ -45,8 +45,9 @@ const setFolderID = (folderID) => {
 }
 // const folder = content.childNodes;
 // console.log(folder);
-const displayTasks = () => {
-  const project = findFolder(folder.dataset.folderId);
+const displayTasks = (folderID) => {
+  const project = findFolder(folderID);
+  // console.log(project.getTitle());
   folder.innerHTML = "";
   for (let task of project.getTasks()) {
     const taskElement = document.createElement("div");
@@ -83,7 +84,6 @@ const displayTasks = () => {
 
     secSepElement.classList.add("sep-two");
 
-
     taskElement.appendChild(sepElement);
     taskElement.appendChild(secSepElement);
 
@@ -119,16 +119,42 @@ form.addEventListener("submit", getFormData);
 const t = newTask("Test", "04-03-2025", "This is a test of the american broadcasting station", 10);
 newDay.addNewTask(t);
 myDay.addNewTask(t);
-displayTasks();
+displayTasks(folder.dataset.folderId);
+
+const displayFolders = (allFolders) => {
+  // folder.innerHTML = "";
+  // folder.dataset.id = "";
+  for (let f of allFolders) {
+    const newFolder = document.createElement("div");
+    newFolder.dataset.folderId = f.id;
+
+    const title = document.createElement("h1");
+    title.textContent = f.getTitle();
+
+    newFolder.appendChild(title);
+    console.log(newFolder.dataset.folderId)
+    newFolder.addEventListener("click", function(event) {
+      displayTasks(newFolder.dataset.folderId)
+    });
+
+    folder.appendChild(newFolder);
+  }
+}
 
 
 const myDayWindow = () => {
+  console.log("H")
   setFolderID(myDay.getID());
-  displayTasks();
+  displayTasks(myDay.getID());
 }
 
 const homeButton = document.getElementById("home");
 homeButton.addEventListener("click", myDayWindow);
+
+const projectButton = document.getElementById("projects");
+projectButton.addEventListener("click", function(event) {
+  displayFolders(AllFolders);
+});
 
 // myDay.addNewTask(t);
 

@@ -6,7 +6,6 @@ const newFolder = (title, date, description) => {
     id: crypto.randomUUID(),
     tasks: [],
     title,
-    date,
     description,
   }
 
