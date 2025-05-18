@@ -1,6 +1,6 @@
 import { taskForm, folderForm, showTaskFormButton, showFolderFormButton } from "./elements.js";
 import { findFolder, setID, folderNotMyDay } from "./search.js";
-import { deleteFolder } from "./create.js";
+import { deleteFolder, changePL, finalChangePL } from "./create.js";
 
 const resetDisplay = (div)  => {
   div.innerHTML = "";
@@ -38,12 +38,46 @@ const displayTasks = (container, folders) => {
     sepElement.classList.add("sep-one");
 
 
-    const priorityLevel = document.createElement("h3");
-    priorityLevel.textContent = "Priority Level: " + task.getPriorityLevel();
-    secSepElement.appendChild(priorityLevel);
+
+    const priorityLevel = document.querySelector("div");
+    const priorityLevelNormal = document.createElement("h3");
+    priorityLevelNormal.textContent = "Priority Level: " + task.getPriorityLevel();
+
+    const priorityLevelForm = document.createElement("form");
+    const selectLevel = document.createElement("select");
+    selectLevel.id = "priority";
+    selectLevel.name = "priority";
+    const sub = document.createElement("input");
+    sub.type = "submit";
+
+    sub.addEventListener("click", (event) => {
+      finalChangePL(task, event);
+      displayTasks(container, folders);
+    });
+    priorityLevelForm.appendChild(sub);
+
+    for (let option of [1,2,3,4,5]) {
+      const op = document.createElement("option");
+      op.value = option;
+      op.text = option;
+      selectLevel.appendChild(op);
+    }
+    priorityLevelForm.classList.add("priority-form");
+    priorityLevelForm.id = crypto.randomUUID();
+    priorityLevelForm.classList.add("non-visible");
+
+    priorityLevelForm.appendChild(selectLevel);
+    priorityLevel.appendChild(priorityLevelNormal);
+    priorityLevel.appendChild(priorityLevelForm);
+
+    secSepElement.appendChild(priorityLevelNormal);
+    secSepElement.appendChild(priorityLevelForm);
 
     const changePLbutton = document.createElement("button");
     changePLbutton.textContent = "Change";
+    changePLbutton.addEventListener("click", function(event) {
+      changePL(task, priorityLevelForm.id);
+    })
     secSepElement.appendChild(changePLbutton);
 
     const dueDate = document.createElement("h3");

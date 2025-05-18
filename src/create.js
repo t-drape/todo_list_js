@@ -55,4 +55,18 @@ const getFolderFormData = (event, folders) => {
   folderForm.reset();
 }
 
-export { addTaskToFolder, getTaskFormData, getFolderFormData, deleteFolder };
+const changePL = (task, formID) => {
+  const form = document.getElementById(formID);
+  form.classList.remove("non-visible");
+}
+
+const finalChangePL = (task, event) => {
+  event.preventDefault();
+  const f = event.target.parentElement
+  const data = new FormData(f);
+  const pl = data.get("priority");
+  task.changePriorityLevel(pl);
+  f.reset();
+}
+
+export { addTaskToFolder, getTaskFormData, getFolderFormData, deleteFolder, changePL, finalChangePL };

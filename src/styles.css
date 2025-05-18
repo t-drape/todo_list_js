@@ -77,13 +77,13 @@ nav > button {
 }
 
 .sep-one {
-  width: 65%;
+  width: 60%;
   display: flex;
   align-items: center;
 }
 
 .sep-two {
-  width: 35%;
+  width: 40%;
   display: flex;
   align-items: center;
 }
