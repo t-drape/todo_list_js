@@ -58,7 +58,7 @@ const displayTasks = (container, folders) => {
     container.appendChild(taskElement);
   }
   showTaskFormButton.classList.remove("non-visible");
-  showFolderFormButton.classList.toggle("non-visible");
+  showFolderFormButton.classList.add("non-visible");
 }
 
 const displayFolders = (container, folders) => {
@@ -68,12 +68,21 @@ const displayFolders = (container, folders) => {
 
     const title = document.createElement("h1");
     title.textContent = f.getTitle();
-
     newFolder.appendChild(title);
-    newFolder.addEventListener("click", function(event) {
+
+    const description = document.createElement("p");
+    description.textContent = f.getDescription();
+    newFolder.appendChild(description);
+
+
+    const goButton = document.createElement("button");
+    goButton.textContent = "View Project";
+    goButton.addEventListener("click", function(event) {
       setID(container, newFolder.dataset.folderId);
       displayTasks(container, folders);
     });
+
+    newFolder.appendChild(goButton);
 
     container.appendChild(newFolder);
   }
