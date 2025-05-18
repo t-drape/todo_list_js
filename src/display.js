@@ -1,4 +1,4 @@
-import { showTaskFormButton, showFolderFormButton } from "./elements.js";
+import { taskForm, folderForm, showTaskFormButton, showFolderFormButton } from "./elements.js";
 import { findFolder, setID, folderNotMyDay } from "./search.js";
 import { deleteFolder } from "./create.js";
 
@@ -61,6 +61,7 @@ const displayTasks = (container, folders) => {
   }
   showTaskFormButton.classList.remove("non-visible");
   showFolderFormButton.classList.add("non-visible");
+  folderForm.classList.add("non-visible");
 }
 
 const displayFolders = (container, folders) => {
@@ -113,6 +114,7 @@ const displayFolders = (container, folders) => {
   }
   showTaskFormButton.classList.add("non-visible");
   showFolderFormButton.classList.remove("non-visible");
+  taskForm.classList.add("non-visible");
 }
 
 const readyWindowFolders = (container, folders) => {
