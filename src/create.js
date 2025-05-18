@@ -25,6 +25,16 @@ const createFolder = (data) => {
   return folder;
 }
 
+const deleteFolder = (folders, folderID) => {
+  let index = 0;
+  for (let folder of folders) {
+    if (folder.getID() == folderID) {
+      folders.splice(index, 1);
+    }
+    index++;
+  }
+}
+
 const addTaskToFolder = (task, container, folders) => {
   const project = search.findFolder(container.dataset.folderId, folders);
   project.addNewTask(task);
@@ -45,4 +55,4 @@ const getFolderFormData = (event, folders) => {
   folderForm.reset();
 }
 
-export { addTaskToFolder, getTaskFormData, getFolderFormData };
+export { addTaskToFolder, getTaskFormData, getFolderFormData, deleteFolder };

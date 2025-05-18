@@ -10,4 +10,8 @@ const setID = (container, folderID) => {
   container.dataset.folderId = folderID;
 }
 
-export { findFolder, setID };
+const folderNotMyDay = (folders, folder) => {
+  return (folder === folders[0]);
+}
+
+export { findFolder, setID, folderNotMyDay };

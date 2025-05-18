@@ -1,5 +1,6 @@
-import { findFolder, setID } from "./search.js";
 import { showTaskFormButton, showFolderFormButton } from "./elements.js";
+import { findFolder, setID, folderNotMyDay } from "./search.js";
+import { deleteFolder } from "./create.js";
 
 const resetDisplay = (div)  => {
   div.innerHTML = "";
@@ -83,6 +84,16 @@ const displayFolders = (container, folders) => {
     });
 
     newFolder.appendChild(goButton);
+
+    if (!folderNotMyDay(folders, f)) {
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", function(event) {
+        deleteFolder(folders, f.getID());
+        readyWindowFolders(container, folders);
+      });
+      newFolder.appendChild(deleteButton);
+    }
 
     container.appendChild(newFolder);
   }
