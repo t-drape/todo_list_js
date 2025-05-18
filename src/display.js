@@ -1,4 +1,5 @@
 import { findFolder, setID } from "./search.js";
+import { showTaskFormButton, showFolderFormButton } from "./elements.js";
 
 const resetDisplay = (div)  => {
   div.innerHTML = "";
@@ -39,6 +40,10 @@ const displayTasks = (container, folders) => {
     priorityLevel.textContent = "Priority Level: " + task.getPriorityLevel();
     secSepElement.appendChild(priorityLevel);
 
+    const changePLbutton = document.createElement("button");
+    changePLbutton.textContent = "Change";
+    secSepElement.appendChild(changePLbutton);
+
     const dueDate = document.createElement("h3");
     dueDate.textContent = "Due Date: " + task.getDate();
     secSepElement.appendChild(dueDate);
@@ -52,6 +57,8 @@ const displayTasks = (container, folders) => {
 
     container.appendChild(taskElement);
   }
+  showTaskFormButton.classList.remove("non-visible");
+  showFolderFormButton.classList.toggle("non-visible");
 }
 
 const displayFolders = (container, folders) => {
@@ -70,6 +77,8 @@ const displayFolders = (container, folders) => {
 
     container.appendChild(newFolder);
   }
+  showTaskFormButton.classList.add("non-visible");
+  showFolderFormButton.classList.remove("non-visible");
 }
 
 const readyWindowFolders = (container, folders) => {

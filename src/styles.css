@@ -108,17 +108,7 @@ nav > button {
   margin-left: 25px;
   max-width: 65ch;
 }
-/* 
-footer {
-  text-align: center;
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  border-top: 5px solid black;
-} */
 
-
-/* form {
+.non-visible {
   display: none;
-} */
+}
