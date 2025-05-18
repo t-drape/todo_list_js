@@ -6,6 +6,68 @@ const resetDisplay = (div)  => {
   div.innerHTML = "";
 }
 
+const viewTask = (task, container) => {
+  resetDisplay(container);
+  showTaskFormButton.classList.add("non-visible");
+  showFolderFormButton.classList.add("non-visible");
+  taskForm.classList.add("non-visible");
+
+  const total = document.createElement("div");
+  const title = document.createElement("h1");
+  title.textContent = task.getTitle();
+  const description = document.createElement("p");
+  description.textContent = task.getDescription();
+  const dueDate = document.createElement("p");
+  dueDate.textContent = "Due Date: " + task.getDate();
+  total.appendChild(title);
+  total.appendChild(description);
+  total.appendChild(dueDate);
+
+  const priorityLevel = document.createElement("div");
+  const priorityLevelNormal = document.createElement("h3");
+  const changeLink = document.createElement("a");
+  changeLink.textContent = task.getPriorityLevel();
+  priorityLevelNormal.textContent = "Priority Level: ";
+  priorityLevel.appendChild(priorityLevelNormal);
+  priorityLevel.appendChild(changeLink);
+  priorityLevel.classList.add("priority-level");
+
+  const priorityLevelForm = document.createElement("form");
+  const selectLevel = document.createElement("select");
+  selectLevel.id = "priority";
+  selectLevel.name = "priority";
+  const sub = document.createElement("input");
+  sub.type = "submit";
+
+  sub.addEventListener("click", (event) => {
+    finalChangePL(task, event);
+    viewTask(task, container);
+  });
+
+  for (let option of [1,2,3,4,5]) {
+    const op = document.createElement("option");
+    op.value = option;
+    op.text = option;
+    selectLevel.appendChild(op);
+  }
+  priorityLevelForm.classList.add("priority-form");
+  priorityLevelForm.id = crypto.randomUUID();
+  priorityLevelForm.classList.add("non-visible");
+
+  priorityLevelForm.appendChild(selectLevel);
+  priorityLevelForm.appendChild(sub);
+
+  changeLink.addEventListener("click", function(event) {
+    changePL(event, priorityLevelForm.id);
+  })
+
+  priorityLevel.appendChild(priorityLevelForm);
+  total.appendChild(priorityLevel);
+
+  total.classList.add("task-view");
+  container.appendChild(total);
+}
+
 const displayTasks = (container, folders) => {
   const project = findFolder(container.dataset.folderId, folders);
   resetDisplay(container);
@@ -29,10 +91,14 @@ const displayTasks = (container, folders) => {
     const title = document.createElement("h1");
     title.textContent = task.getTitle();
     title.classList.add("short-task-title")
+
+    title.addEventListener("click", () => {
+      viewTask(task, container);
+    });
     sepElement.appendChild(title);
 
     sepElement.classList.add("project-style-first");
-    
+
     taskElement.appendChild(sepElement);
 
     // const description = document.createElement("p");

@@ -3,11 +3,20 @@ import { newFolder } from "./folder.js";
 import { newTask } from "./task.js";
 import * as search from "./search.js";
 
-const AllFolders = [];
 
-const myDay = newFolder("My Day", "All your Tasks");
-AllFolders.push(myDay);
-
+const allFolders = [];
+// let retrieved = localStorage.getItem("folders");
+// let allFolders;
+// if (retrieved == null) {
+//   allFolders = [];
+//   const myDay = newFolder("My Day", "All your Tasks");
+//   myDay.addNewTask("Hello There", "0050-05-04", "Jello", 4);
+//   allFolders.push(myDay);
+//   localStorage.setItem("folders", JSON.stringify(allFolders));
+// } else {
+//   console.log(retrieved);
+//   allFolders = JSON.parse(retrieved);
+// }
 
 const createTask = (data) => {
   const title = data.get("title");

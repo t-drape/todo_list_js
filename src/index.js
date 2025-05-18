@@ -6,32 +6,32 @@ import { setID } from "./search.js";
 
 import "./styles.css";
 
-const AllFolders = [];
+const allFolders = [];
 
 const myDay = newFolder("My Day", "All your Tasks");
-AllFolders.push(myDay);
+allFolders.push(myDay);
 
 taskForm.addEventListener("submit", (event) => {
   const task = getTaskFormData(event);
-  addTaskToFolder(task, content, AllFolders);
-  displayTasks(content, AllFolders);
+  addTaskToFolder(task, content, allFolders);
+  displayTasks(content, allFolders);
   taskForm.classList.add("non-visible");
 });
 
 
 folderForm.addEventListener("submit", (event) => {
-  getFolderFormData(event, AllFolders);
-  readyWindowFolders(content, AllFolders);
+  getFolderFormData(event, allFolders);
+  readyWindowFolders(content, allFolders);
   folderForm.classList.add("non-visible");
 });
 
 homeButton.addEventListener("click", () => {
   setID(content, myDay.getID());
-  displayTasks(content, AllFolders);
+  displayTasks(content, allFolders);
 });
 
 projectButton.addEventListener("click", function(event) {
-  readyWindowFolders(content, AllFolders);
+  readyWindowFolders(content, allFolders);
 });
 
 showTaskFormButton.addEventListener("click", () => {
