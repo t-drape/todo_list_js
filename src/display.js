@@ -18,6 +18,7 @@ const displayTasks = (container, folders) => {
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "X";
+    deleteButton.classList.add("delete-task-button");
     deleteButton.addEventListener("click", (event) => {
       project.deleteTask(event.target.parentElement.parentElement.dataset.id);
       displayTasks(container, folders);
@@ -67,13 +68,16 @@ const displayFolders = (container, folders) => {
     const newFolder = document.createElement("div");
     newFolder.dataset.folderId = f.getID();
 
+    const every = document.createElement("div");
+    const deletion = document.createElement("div");
+
     const title = document.createElement("h1");
     title.textContent = f.getTitle();
-    newFolder.appendChild(title);
+    every.appendChild(title);
 
     const description = document.createElement("p");
     description.textContent = f.getDescription();
-    newFolder.appendChild(description);
+    every.appendChild(description);
 
 
     const goButton = document.createElement("button");
@@ -83,7 +87,11 @@ const displayFolders = (container, folders) => {
       displayTasks(container, folders);
     });
 
-    newFolder.appendChild(goButton);
+    every.appendChild(goButton);
+
+    every.classList.add("common-folder");
+
+    newFolder.appendChild(every);
 
     if (!folderNotMyDay(folders, f)) {
       const deleteButton = document.createElement("button");
@@ -92,8 +100,14 @@ const displayFolders = (container, folders) => {
         deleteFolder(folders, f.getID());
         readyWindowFolders(container, folders);
       });
-      newFolder.appendChild(deleteButton);
+      deletion.appendChild(deleteButton);
     }
+
+    deletion.classList.add("deletion-folder");
+
+    newFolder.appendChild(deletion);
+
+    newFolder.classList.add("folder");
 
     container.appendChild(newFolder);
   }
