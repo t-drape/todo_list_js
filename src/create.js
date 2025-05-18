@@ -55,14 +55,15 @@ const getFolderFormData = (event, folders) => {
   folderForm.reset();
 }
 
-const changePL = (task, formID) => {
+const changePL = (event, formID) => {
   const form = document.getElementById(formID);
   form.classList.remove("non-visible");
+  event.target.classList.add("non-visible");
 }
 
 const finalChangePL = (task, event) => {
   event.preventDefault();
-  const f = event.target.parentElement
+  const f = event.target.parentElement;
   const data = new FormData(f);
   const pl = data.get("priority");
   task.changePriorityLevel(pl);
