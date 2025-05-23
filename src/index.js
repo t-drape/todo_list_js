@@ -8,14 +8,15 @@ import { newTask } from "./task.js";
 
 import "./styles.css";
 
-const allFolders = [];
+let allFolders = [];
 
 window.addEventListener('beforeunload', function (e) {
+  console.log("This is whats saved: ", allFolders);
   localStorage.setItem("allFolders", JSON.stringify(allFolders));
 });
 
 const checkIfFolders = localStorage.getItem("allFolders");
-if (checkIfFolders !== null && checkIfFolders.length > 0) {
+if (checkIfFolders !== null && checkIfFolders != '[]') {
   const retrieved = JSON.parse(checkIfFolders);
   for (let folder of retrieved) {
     const buildFolder = newFolder(folder.title, folder.description);
