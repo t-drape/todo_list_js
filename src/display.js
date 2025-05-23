@@ -1,6 +1,6 @@
 import { taskForm, folderForm, showTaskFormButton, showFolderFormButton } from "./elements.js";
 import { findFolder, setID, folderNotMyDay } from "./search.js";
-import { deleteFolder, changePL, finalChangePL, finalChangeDate, finalChangeDescription } from "./create.js";
+import { deleteFolder, changePL, finalChangePL, finalChangeDate, finalChangeDescription, finalChangeTitle } from "./create.js";
 import { format } from "date-fns";
 const resetDisplay = (div)  => {
   div.innerHTML = "";
@@ -13,8 +13,41 @@ const viewTask = (task, container, folders) => {
   taskForm.classList.add("non-visible");
 
   const total = document.createElement("div");
-  const title = document.createElement("h1");
-  title.textContent = task.getTitle();
+
+  const title = document.createElement("div");
+
+  const titleForm = document.createElement("form");
+  titleForm.id = crypto.randomUUID();
+
+  const writeTitle = document.createElement("input");
+  writeTitle.type = "text";
+  writeTitle.placeholder = "Title";
+  writeTitle.name = "title";
+  writeTitle.id = "title";
+
+  const submitTitle = document.createElement("input");
+  submitTitle.type = "submit";
+
+  submitTitle.addEventListener("click", (event) => {
+    finalChangeTitle(task, event);
+    viewTask(task, container);
+  });
+
+  titleForm.appendChild(writeTitle);
+  titleForm.appendChild(submitTitle);
+  titleForm.classList.add("non-visible");
+
+  title.appendChild(titleForm);
+
+  const titleText = document.createElement("h1");
+  titleText.textContent = task.getTitle();
+
+  titleText.addEventListener("click", (event) => {
+    changePL(event, titleForm.id);
+  });
+
+  title.appendChild(titleText);
+
   total.appendChild(title);
 
   const description = document.createElement("div");

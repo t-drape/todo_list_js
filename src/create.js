@@ -98,4 +98,13 @@ const finalChangeDescription = (task, event) => {
   f.reset();
 }
 
-export { addTaskToFolder, getTaskFormData, getFolderFormData, deleteFolder, changePL, finalChangePL, finalChangeDate, finalChangeDescription };
+const finalChangeTitle = (task, event) => {
+  event.preventDefault();
+  const f = event.target.parentElement;
+  const data = new FormData(f);
+  const title = data.get("title");
+  task.changeTitle(title);
+  f.reset();
+}
+
+export { addTaskToFolder, getTaskFormData, getFolderFormData, deleteFolder, changePL, finalChangePL, finalChangeDate, finalChangeDescription, finalChangeTitle };
