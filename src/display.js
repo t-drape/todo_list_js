@@ -1,7 +1,7 @@
 import { taskForm, folderForm, showTaskFormButton, showFolderFormButton } from "./elements.js";
 import { findFolder, setID, folderNotMyDay } from "./search.js";
 import { deleteFolder, changePL, finalChangePL } from "./create.js";
-
+import { format } from "date-fns";
 const resetDisplay = (div)  => {
   div.innerHTML = "";
 }
@@ -18,7 +18,7 @@ const viewTask = (task, container) => {
   const description = document.createElement("p");
   description.textContent = task.getDescription();
   const dueDate = document.createElement("p");
-  dueDate.textContent = "Due Date: " + task.getDate();
+  dueDate.textContent = "Due: " + format(task.getDate(), "MMMM dd, yyyy");
   total.appendChild(title);
   total.appendChild(description);
   total.appendChild(dueDate);
@@ -148,7 +148,7 @@ const displayTasks = (container, folders) => {
     // secSepElement.appendChild(priorityLevel);
 
     const dueDate = document.createElement("h3");
-    dueDate.textContent = "Due: " + task.getDate();
+    dueDate.textContent = "Due: " + format(task.getDate(), "MMMM dd, yyyy");
     dueDate.classList.add("short-due-date")
     taskElement.appendChild(dueDate);
 

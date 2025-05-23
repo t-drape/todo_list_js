@@ -20,7 +20,7 @@ import * as search from "./search.js";
 
 const createTask = (data) => {
   const title = data.get("title");
-  const dueDate = data.get("dueDate");
+  const dueDate = new Date(data.get("dueDate"));
   const priority = data.get("priority");
   const description = data.get("description");
   // When a new task is created, add it automatically to myDay
@@ -47,6 +47,7 @@ const deleteFolder = (folders, folderID) => {
 const addTaskToFolder = (task, container, folders) => {
   const project = search.findFolder(container.dataset.folderId, folders);
   project.addNewTask(task);
+  localStorage.setItem("allFolders", JSON.stringify(folders));
 }
 
 const getTaskFormData = (event) => {

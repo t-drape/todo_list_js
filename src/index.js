@@ -28,7 +28,6 @@ if (checkIfFolders !== null && checkIfFolders.length > 0) {
 } else {
   const myDay = newFolder("My Day", "All your Tasks");
   allFolders.push(myDay);
-
 }
 
 taskForm.addEventListener("submit", (event) => {
