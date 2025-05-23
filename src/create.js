@@ -4,7 +4,7 @@ import { newTask } from "./task.js";
 import * as search from "./search.js";
 
 
-const allFolders = [];
+// const allFolders = [];
 // let retrieved = localStorage.getItem("folders");
 // let allFolders;
 // if (retrieved == null) {
@@ -61,6 +61,7 @@ const getFolderFormData = (event, folders) => {
   event.preventDefault();
   const data = new FormData(folderForm);
   folders.push(createFolder(data));
+  localStorage.setItem("allFolders", JSON.stringify(folders));
   folderForm.reset();
 }
 

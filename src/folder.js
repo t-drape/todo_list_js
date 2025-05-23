@@ -30,8 +30,8 @@ const newFolder = (title, description) => {
     Title(state),
     Description(state),
     Tasks(state),
+    state
   )
 };
-
 
 export { newFolder };

@@ -3,13 +3,34 @@ import { getTaskFormData, getFolderFormData, addTaskToFolder } from "./create.js
 import { displayTasks, readyWindowFolders } from "./display.js";
 import { newFolder } from "./folder.js";
 import { setID } from "./search.js";
+import { newTask } from "./task.js";
+
 
 import "./styles.css";
 
 const allFolders = [];
 
-const myDay = newFolder("My Day", "All your Tasks");
-allFolders.push(myDay);
+window.addEventListener('beforeunload', function (e) {
+  localStorage.setItem("allFolders", JSON.stringify(allFolders));
+});
+
+const checkIfFolders = localStorage.getItem("allFolders");
+if (checkIfFolders !== null && checkIfFolders.length > 0) {
+  const retrieved = JSON.parse(checkIfFolders);
+  for (let folder of retrieved) {
+    const buildFolder = newFolder(folder.title, folder.description);
+    for (let task of folder.tasks) {
+      const buildTask = newTask(task.title, task.date, task.description, task.priority);
+      buildFolder.addNewTask(buildTask);
+    }
+    allFolders.push(buildFolder);
+  }
+  homeButton.click();
+} else {
+  const myDay = newFolder("My Day", "All your Tasks");
+  allFolders.push(myDay);
+  homeButton.click();
+}
 
 taskForm.addEventListener("submit", (event) => {
   const task = getTaskFormData(event);
@@ -26,7 +47,8 @@ folderForm.addEventListener("submit", (event) => {
 });
 
 homeButton.addEventListener("click", () => {
-  setID(content, myDay.getID());
+  console.log(allFolders[0].getID());
+  setID(content, allFolders[0].getID());
   displayTasks(content, allFolders);
 });
 
@@ -44,4 +66,3 @@ showFolderFormButton.addEventListener("click", () => {
 
 taskForm.classList.add("non-visible");
 folderForm.classList.add("non-visible");
-homeButton.click();
