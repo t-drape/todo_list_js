@@ -25,11 +25,10 @@ if (checkIfFolders !== null && checkIfFolders.length > 0) {
     }
     allFolders.push(buildFolder);
   }
-  homeButton.click();
 } else {
   const myDay = newFolder("My Day", "All your Tasks");
   allFolders.push(myDay);
-  homeButton.click();
+
 }
 
 taskForm.addEventListener("submit", (event) => {
@@ -47,7 +46,6 @@ folderForm.addEventListener("submit", (event) => {
 });
 
 homeButton.addEventListener("click", () => {
-  console.log(allFolders[0].getID());
   setID(content, allFolders[0].getID());
   displayTasks(content, allFolders);
 });
@@ -64,5 +62,6 @@ showFolderFormButton.addEventListener("click", () => {
   folderForm.classList.remove("non-visible");
 });
 
+homeButton.click();
 taskForm.classList.add("non-visible");
 folderForm.classList.add("non-visible");
