@@ -9,12 +9,23 @@ const resetDisplay = (div)  => {
 }
 
 const viewTask = (task, container, folders) => {
+  const backFolder = container.dataset.id;
   resetDisplay(container);
   showTaskFormButton.classList.add("non-visible");
   showFolderFormButton.classList.add("non-visible");
   taskForm.classList.add("non-visible");
 
+  const backButton = document.createElement("button");
+
+  backButton.textContent = "Back to Project";
+  backButton.addEventListener("click", () => {
+    container.dataset.id = backFolder;
+    displayTasks(container, folders);
+  });
+
   const total = document.createElement("div");
+
+  total.appendChild(backButton);
 
   const title = document.createElement("div");
 
