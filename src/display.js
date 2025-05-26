@@ -1,7 +1,9 @@
 import { taskForm, folderForm, showTaskFormButton, showFolderFormButton } from "./elements.js";
 import { findFolder, setID, folderNotMyDay } from "./search.js";
 import { deleteFolder, changePL, finalChangePL, finalChangeDate, finalChangeDescription, finalChangeTitle } from "./create.js";
+import { save } from "./index.js";
 import { format } from "date-fns";
+
 const resetDisplay = (div)  => {
   div.innerHTML = "";
 }
@@ -24,23 +26,29 @@ const viewTask = (task, container, folders) => {
   writeTitle.placeholder = "Title";
   writeTitle.name = "title";
   writeTitle.id = "title";
+  writeTitle.setAttribute('required', '');
+
 
   const submitTitle = document.createElement("input");
   submitTitle.type = "submit";
 
-  submitTitle.addEventListener("click", (event) => {
-    finalChangeTitle(task, event);
-    viewTask(task, container);
-  });
-
   titleForm.appendChild(writeTitle);
   titleForm.appendChild(submitTitle);
+
+  titleForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    finalChangeTitle(task, event);
+    save(folders);
+    viewTask(task, container, folders);
+  });
+
   titleForm.classList.add("non-visible");
 
   title.appendChild(titleForm);
 
   const titleText = document.createElement("h1");
   titleText.textContent = task.getTitle();
+
 
   titleText.addEventListener("click", (event) => {
     changePL(event, titleForm.id);
@@ -57,19 +65,23 @@ const viewTask = (task, container, folders) => {
 
   const writeDescription = document.createElement("textarea");
   writeDescription.name = "description";
+  writeDescription.setAttribute('required', '');
   writeDescription.id = "description";
   writeDescription.placeholder = "Enter description";
 
   const submitDescription = document.createElement("input");
   submitDescription.type = "submit";
 
-  submitDescription.addEventListener("click", (event) => {
-      finalChangeDescription(task, event);
-      viewTask(task, container);
-  })
-
   descriptionForm.appendChild(writeDescription);
   descriptionForm.appendChild(submitDescription);
+
+  descriptionForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    finalChangeDescription(task, event);
+    save(folders);
+    viewTask(task, container, folders);
+  });
+
   descriptionForm.classList.add("non-visible");
   
   description.appendChild(descriptionForm);
@@ -89,7 +101,7 @@ const viewTask = (task, container, folders) => {
   const dueDate = document.createElement("div");
 
   const showDueDate = document.createElement("p");
-  showDueDate.textContent = "Due: " + format(task.getDate(), "MMMM dd, yyyy");
+  showDueDate.textContent = "Due: " + format(task.getDate(), "MMMM dddd, yyyy");
   dueDate.appendChild(showDueDate);
 
   const dueDateForm = document.createElement("form");
@@ -105,7 +117,8 @@ const viewTask = (task, container, folders) => {
   dueDateForm.addEventListener("submit", (event) => {
     event.preventDefault();
     finalChangeDate(task, event);
-    viewTask(task, container);
+    save(folders);
+    viewTask(task, container, folders);
   })
 
   showDueDate.addEventListener("click", (event) => {
@@ -136,12 +149,6 @@ const viewTask = (task, container, folders) => {
   const sub = document.createElement("input");
   sub.type = "submit";
 
-  sub.addEventListener("click", (event) => {
-    finalChangePL(task, event);
-    localStorage.setItem("allFolders", JSON.stringify(folders));
-    viewTask(task, container);
-  });
-
   for (let option of [1,2,3,4,5]) {
     const op = document.createElement("option");
     op.value = option;
@@ -154,6 +161,13 @@ const viewTask = (task, container, folders) => {
 
   priorityLevelForm.appendChild(selectLevel);
   priorityLevelForm.appendChild(sub);
+
+  priorityLevelForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    finalChangePL(task, event);
+    save(folders);
+    viewTask(task, container, folders);
+  });
 
   changeLink.addEventListener("click", function(event) {
     changePL(event, priorityLevelForm.id);

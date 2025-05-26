@@ -3,6 +3,8 @@ import { newFolder } from "./folder.js";
 import { newTask } from "./task.js";
 import * as search from "./search.js";
 
+import { save } from "./index.js";
+
 
 // const allFolders = [];
 // let retrieved = localStorage.getItem("folders");
@@ -73,8 +75,7 @@ const changePL = (event, formID) => {
 }
 
 const finalChangePL = (task, event) => {
-  event.preventDefault();
-  const f = event.target.parentElement;
+  const f = event.target;
   const data = new FormData(f);
   const pl = data.get("priority");
   task.changePriorityLevel(pl);
@@ -90,8 +91,7 @@ const finalChangeDate = (task, event) => {
 }
 
 const finalChangeDescription = (task, event) => {
-  event.preventDefault();
-  const f = event.target.parentElement;
+  const f = event.target;
   const data = new FormData(f);
   const description = data.get("description");
   task.changeDescription(description);
@@ -99,12 +99,12 @@ const finalChangeDescription = (task, event) => {
 }
 
 const finalChangeTitle = (task, event) => {
-  event.preventDefault();
-  const f = event.target.parentElement;
+  const f = event.target;
   const data = new FormData(f);
   const title = data.get("title");
   task.changeTitle(title);
   f.reset();
+  // save();
 }
 
 export { addTaskToFolder, getTaskFormData, getFolderFormData, deleteFolder, changePL, finalChangePL, finalChangeDate, finalChangeDescription, finalChangeTitle };

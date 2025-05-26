@@ -11,13 +11,12 @@ const newTask = (title, date, description, priority) => {
 
 
   return Object.assign(
-    {},
+    state,
     uniqueID(state),
     Title(state),
     DueDate(state),
     Description(state),
     Priority(state),
-    state
   )
 };
 

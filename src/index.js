@@ -10,10 +10,14 @@ import "./styles.css";
 
 let allFolders = [];
 
-window.addEventListener('beforeunload', function (e) {
-  console.log("This is whats saved: ", allFolders);
-  localStorage.setItem("allFolders", JSON.stringify(allFolders));
-});
+// window.addEventListener('beforeunload', function (e) {
+//   console.log("This is whats saved: ", allFolders[0].getTasks()[0].getTitle());
+//   localStorage.setItem("allFolders", JSON.stringify(allFolders));
+// });
+
+const save = (folders) => {
+  localStorage.setItem("allFolders", JSON.stringify(folders));
+}
 
 const checkIfFolders = localStorage.getItem("allFolders");
 if (checkIfFolders !== null && checkIfFolders != '[]') {
@@ -65,3 +69,5 @@ showFolderFormButton.addEventListener("click", () => {
 homeButton.click();
 taskForm.classList.add("non-visible");
 folderForm.classList.add("non-visible");
+
+export { save }
