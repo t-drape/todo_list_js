@@ -207,6 +207,7 @@ const displayTasks = (container, folders) => {
     deleteButton.classList.add("short-delete-task-button");
     deleteButton.addEventListener("click", (event) => {
       project.deleteTask(event.target.parentElement.parentElement.dataset.id);
+      save(folders);
       displayTasks(container, folders);
     });
     sepElement.appendChild(deleteButton);
