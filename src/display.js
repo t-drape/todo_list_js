@@ -326,6 +326,7 @@ const displayFolders = (container, folders) => {
       deleteButton.textContent = "Delete";
       deleteButton.addEventListener("click", function(event) {
         deleteFolder(folders, f.getID());
+        save(folders);
         readyWindowFolders(container, folders);
       });
       deletion.appendChild(deleteButton);
