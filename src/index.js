@@ -58,12 +58,14 @@ projectButton.addEventListener("click", function(event) {
   readyWindowFolders(content, allFolders);
 });
 
-showTaskFormButton.addEventListener("click", () => {
+showTaskFormButton.addEventListener("click", (event) => {
   taskForm.classList.remove("non-visible");
+  event.target.classList.add("non-visible");
 });
 
-showFolderFormButton.addEventListener("click", () => {
+showFolderFormButton.addEventListener("click", (event) => {
   folderForm.classList.remove("non-visible");
+  event.target.classList.add("non-visible");
 });
 
 homeButton.click();

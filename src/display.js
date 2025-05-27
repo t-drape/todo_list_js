@@ -1,4 +1,4 @@
-import { taskForm, folderForm, showTaskFormButton, showFolderFormButton } from "./elements.js";
+import { taskForm, folderForm, showTaskFormButton, showFolderFormButton, titlePart, topDisplay, backButton } from "./elements.js";
 import { findFolder, setID, folderNotMyDay } from "./search.js";
 import { deleteFolder, changePL, finalChangePL, finalChangeDate, finalChangeDescription, finalChangeTitle } from "./create.js";
 import { save } from "./index.js";
@@ -9,11 +9,12 @@ const resetDisplay = (div)  => {
 }
 
 const viewTask = (task, container, folders) => {
+
   const backFolder = container.dataset.folderId;
+
+  viewTaskTop(container, backFolder, folders);
+  
   resetDisplay(container);
-  showTaskFormButton.classList.add("non-visible");
-  showFolderFormButton.classList.add("non-visible");
-  taskForm.classList.add("non-visible");
 
   const backButton = document.createElement("button");
 
@@ -205,18 +206,29 @@ const viewTask = (task, container, folders) => {
   container.appendChild(total);
 }
 
+const viewTaskTop = () => {
+  showTaskFormButton.classList.add("non-visible");
+  showFolderFormButton.classList.add("non-visible");
+  taskForm.classList.add("non-visible");
+
+  topDisplay.classList.add("single-task");
+}
+
+const viewProjectTop = (title) => {
+  backButton.classList.add("non-visible");
+  showTaskFormButton.classList.remove("non-visible");
+  titlePart.textContent = title;
+  topDisplay.classList.add("project-view");
+}
+
 const displayTasks = (container, folders) => {
   const project = findFolder(container.dataset.folderId, folders);
-  const projectTitle = project.getTitle();
 
   resetDisplay(container);
 
-  const showProjectTitle = document.createElement("h1");
-  showProjectTitle.textContent = projectTitle;
-  showProjectTitle.classList.add("project-title");
-  container.appendChild(showProjectTitle);
+  viewProjectTop(project.getTitle());
 
-  
+
   for (let task of project.getTasks()) {
     const taskElement = document.createElement("div");
     taskElement.dataset.id = task.getID();

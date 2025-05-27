@@ -12,11 +12,12 @@
       <button id="projects">Projects</button>
     </nav>
   </header>
-  <div id="content" class="content">
-  </div>
-  <button class="show-task-form">Add New Task</button>
-  <button class="show-folder-form">Add New Folder</button>
-  <form class="task-form">
+  <div id="top-display" class="top-display">
+    <h1 id="title-part" class="title-part"></h1>
+    <button id="back-button" class="non-visible"></button>
+    <button class="show-task-form">Add New Task</button>
+    <button class="show-folder-form">Add New Folder</button>
+    <form class="task-form">
     <label for="title">Title</label>
     <input id="title" name="title" type="text" required>
     <label for="description">Description</label>
@@ -32,14 +33,17 @@
       <option value="5">5</option>
     </select>
     <input type="submit">
-  </form>
-  <form class="folder-form">
+    </form>
+    <form class="folder-form">
     <label for="title">Title</label>
     <input id="title" name="title" type="text" required>
     <label for="description">Description</label>
     <input id="description" name="description" maxLength="65" type="text">
     <input type="submit">
-  </form>
+    </form>
+  </div>
+  <div id="content" class="content">
+  </div>
   <footer>
     <div class="loc">
       <h3>TheOne</h3>
