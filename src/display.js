@@ -206,11 +206,19 @@ const viewTask = (task, container, folders) => {
   container.appendChild(total);
 }
 
+const viewFoldersTop = () => {
+  taskForm.classList.add("non-visible");
+  showTaskFormButton.classList.add("non-visible");
+  showFolderFormButton.classList.remove("non-visible");
+  titlePart.textContent = "Your Folders";
+  topDisplay.classList.add("folders-view");
+}
+
 const viewTaskTop = () => {
   showTaskFormButton.classList.add("non-visible");
   showFolderFormButton.classList.add("non-visible");
   taskForm.classList.add("non-visible");
-
+  titlePart.textContent = "";
   topDisplay.classList.add("single-task");
 }
 
@@ -327,6 +335,9 @@ const displayTasks = (container, folders) => {
 }
 
 const displayFolders = (container, folders) => {
+
+  viewFoldersTop();
+
   for (let f of folders) {
     const newFolder = document.createElement("div");
     newFolder.dataset.folderId = f.getID();
@@ -375,9 +386,6 @@ const displayFolders = (container, folders) => {
 
     container.appendChild(newFolder);
   }
-  showTaskFormButton.classList.add("non-visible");
-  showFolderFormButton.classList.remove("non-visible");
-  taskForm.classList.add("non-visible");
 }
 
 const readyWindowFolders = (container, folders) => {

@@ -50,6 +50,7 @@ folderForm.addEventListener("submit", (event) => {
 });
 
 homeButton.addEventListener("click", () => {
+  taskForm.classList.add("non-visible");
   setID(content, allFolders[0].getID());
   displayTasks(content, allFolders);
 });
