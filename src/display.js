@@ -9,7 +9,7 @@ const resetDisplay = (div)  => {
 }
 
 const viewTask = (task, container, folders) => {
-  const backFolder = container.dataset.id;
+  const backFolder = container.dataset.folderId;
   resetDisplay(container);
   showTaskFormButton.classList.add("non-visible");
   showFolderFormButton.classList.add("non-visible");
@@ -17,9 +17,9 @@ const viewTask = (task, container, folders) => {
 
   const backButton = document.createElement("button");
 
-  backButton.textContent = "Back to Project";
+  backButton.textContent = "Project";
   backButton.addEventListener("click", () => {
-    container.dataset.id = backFolder;
+    setID(container, backFolder);
     displayTasks(container, folders);
   });
 
@@ -186,6 +186,20 @@ const viewTask = (task, container, folders) => {
 
   priorityLevel.appendChild(priorityLevelForm);
   total.appendChild(priorityLevel);
+
+
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete";
+  deleteButton.classList.add("task-view-delete-task-button");
+  deleteButton.addEventListener("click", (event) => {
+    const project = findFolder(backFolder, folders);
+    project.deleteTask(task.getID());
+    save(folders);
+    setID(container, backFolder);
+    displayTasks(container, folders);
+  });
+
+  total.appendChild(deleteButton);
 
   total.classList.add("task-view");
   container.appendChild(total);
