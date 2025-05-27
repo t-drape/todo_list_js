@@ -112,7 +112,7 @@ const viewTask = (task, container, folders) => {
   const dueDate = document.createElement("div");
 
   const showDueDate = document.createElement("p");
-  showDueDate.textContent = "Due: " + format(task.getDate(), "MMMM dddd, yyyy");
+  showDueDate.textContent = "Due: " + format(task.getDate(), "MMMM dd, yyyy");
   dueDate.appendChild(showDueDate);
 
   const dueDateForm = document.createElement("form");
