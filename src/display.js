@@ -207,7 +207,16 @@ const viewTask = (task, container, folders) => {
 
 const displayTasks = (container, folders) => {
   const project = findFolder(container.dataset.folderId, folders);
+  const projectTitle = project.getTitle();
+
   resetDisplay(container);
+
+  const showProjectTitle = document.createElement("h1");
+  showProjectTitle.textContent = projectTitle;
+  showProjectTitle.classList.add("project-title");
+  container.appendChild(showProjectTitle);
+
+  
   for (let task of project.getTasks()) {
     const taskElement = document.createElement("div");
     taskElement.dataset.id = task.getID();
