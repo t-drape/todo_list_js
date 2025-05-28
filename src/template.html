@@ -18,28 +18,36 @@
     <button class="show-task-form">Add New Task</button>
     <button class="show-folder-form">Add New Folder</button>
     <form class="task-form">
-    <label for="title">Title</label>
-    <input id="title" name="title" type="text" required>
-    <label for="description">Description</label>
-    <input id="description" name="description" type="text" required>
-    <label for="dueDate" >Due Date</label>
-    <input id="dueDate" name="dueDate" type="date" required>
-    <label for="priority">Priority</label>
-    <select id="priority" name="priority">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-    </select>
-    <input type="submit">
+      <div class="task-title">
+        <label for="title">Title</label>
+        <input id="title" name="title" type="text" required>
+      </div>
+      <div class="task-description">
+        <label for="description">Description</label>
+        <input id="description" name="description" type="text" required>
+      </div>
+      <div class="task-date">
+        <label for="dueDate" >Due Date</label>
+        <input id="dueDate" name="dueDate" type="date" required>
+      </div>
+      <div class="task-priority">
+        <label for="priority">Priority</label>
+        <select id="priority" name="priority">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+      <input type="submit">
     </form>
     <form class="folder-form">
-    <label for="title">Title</label>
-    <input id="title" name="title" type="text" required>
-    <label for="description">Description</label>
-    <input id="description" name="description" maxLength="65" type="text">
-    <input type="submit">
+      <label for="folder-title">Title</label>
+      <input id="folder-title" name="title" type="text" required>
+      <label for="folder-description">Description</label>
+      <input id="folder-description" name="description" type="text" maxlength="65">
+      <input type="submit">
     </form>
   </div>
   <div id="content" class="content">

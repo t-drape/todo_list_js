@@ -13,6 +13,8 @@ const resetDisplay = (div)  => {
 
 const viewTask = (task, container, folders) => {
 
+  container.classList.add("content-task-view");
+
   const backFolder = container.dataset.folderId;
 
   viewTaskTop(container, backFolder, folders);
@@ -27,9 +29,26 @@ const viewTask = (task, container, folders) => {
     displayTasks(container, folders);
   });
 
-  const total = document.createElement("div");
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete";
+  deleteButton.classList.add("task-view-delete-task-button");
+  deleteButton.addEventListener("click", (event) => {
+    const project = findFolder(backFolder, folders);
+    project.deleteTask(task.getID());
+    save(folders);
+    setID(container, backFolder);
+    displayTasks(container, folders);
+  });
 
-  total.appendChild(backButton);
+  const top = document.createElement("div");
+  top.appendChild(backButton);
+  top.appendChild(deleteButton);
+
+  top.classList.add("task-view-navigation");
+
+  container.appendChild(top);
+
+  const total = document.createElement("div");
 
   const title = document.createElement("div");
 
@@ -198,29 +217,17 @@ const viewTask = (task, container, folders) => {
 
   total.appendChild(priorityLevel);
 
-
-  const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete";
-  deleteButton.classList.add("task-view-delete-task-button");
-  deleteButton.addEventListener("click", (event) => {
-    const project = findFolder(backFolder, folders);
-    project.deleteTask(task.getID());
-    save(folders);
-    setID(container, backFolder);
-    displayTasks(container, folders);
-  });
-
-  total.appendChild(deleteButton);
-
   total.classList.add("task-view");
   container.appendChild(total);
 }
 
 const viewFoldersTop = () => {
+  topDisplay.classList.remove("single-task");
   taskForm.classList.add("non-visible");
+  folderForm.classList.add("non-visible");
   showTaskFormButton.classList.add("non-visible");
   showFolderFormButton.classList.remove("non-visible");
-  titlePart.textContent = "Your Folders";
+  titlePart.textContent = "Folders";
   topDisplay.classList.add("folders-view");
 }
 
@@ -233,6 +240,7 @@ const viewTaskTop = () => {
 }
 
 const viewProjectTop = (title) => {
+  topDisplay.classList.remove("single-task");
   backButton.classList.add("non-visible");
   showTaskFormButton.classList.remove("non-visible");
   titlePart.textContent = title;
