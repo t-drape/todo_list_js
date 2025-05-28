@@ -139,18 +139,6 @@ button {
   padding-left: 15px;
 }
 
-.priority-form:not(.non-visible) {
-  display: flex;
-}
-
-.priority-form {
-  padding-left: 15px;
-}
-
-.priority-form > select {
-  margin-right: 15px;
-}
-
 .task-view {
   display: flex;
   align-items: center;
@@ -170,6 +158,10 @@ button {
 .top-display.single-task {
   display: flex;
   justify-content: space-between;
+}
+
+.title-form:not(.non-visible), .description-form:not(.non-visible), .due-date-form:not(.non-visible), .pl-form:not(.non-visible) {
+  display: flex;
 }
 
 

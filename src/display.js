@@ -4,6 +4,9 @@ import { deleteFolder, changePL, finalChangePL, finalChangeDate, finalChangeDesc
 import { save } from "./index.js";
 import { format } from "date-fns";
 
+// One idea is to change the form into the original new task form,
+// And auto-populate the values to what the user already has selected
+
 const resetDisplay = (div)  => {
   div.innerHTML = "";
 }
@@ -54,6 +57,7 @@ const viewTask = (task, container, folders) => {
     viewTask(task, container, folders);
   });
 
+  titleForm.classList.add("title-form");
   titleForm.classList.add("non-visible");
 
   title.appendChild(titleForm);
@@ -94,6 +98,7 @@ const viewTask = (task, container, folders) => {
     viewTask(task, container, folders);
   });
 
+  descriptionForm.classList.add("description-form");
   descriptionForm.classList.add("non-visible");
   
   description.appendChild(descriptionForm);
@@ -140,6 +145,7 @@ const viewTask = (task, container, folders) => {
   dueDateForm.appendChild(selectDate);
   dueDateForm.appendChild(submitDate);
 
+  dueDateForm.classList.add("due-date-form");
   dueDateForm.classList.add("non-visible");
 
   dueDate.appendChild(dueDateForm);
@@ -169,10 +175,13 @@ const viewTask = (task, container, folders) => {
   }
   priorityLevelForm.classList.add("priority-form");
   priorityLevelForm.id = crypto.randomUUID();
-  priorityLevelForm.classList.add("non-visible");
 
   priorityLevelForm.appendChild(selectLevel);
   priorityLevelForm.appendChild(sub);
+
+  priorityLevelForm.classList.add("pl-form");
+  priorityLevelForm.classList.add("non-visible");
+
 
   priorityLevelForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -186,6 +195,7 @@ const viewTask = (task, container, folders) => {
   })
 
   priorityLevel.appendChild(priorityLevelForm);
+
   total.appendChild(priorityLevel);
 
 
